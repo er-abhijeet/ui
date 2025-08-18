@@ -76,7 +76,7 @@ function Analytics({
   );
 
   return (
-    <>
+    <div className="max-w-md mx-auto">
       <div className="flex flex-wrap justify-center">
         {renderLineChart("calories", "Calories", targetCalories)}
         {renderLineChart("protein", "Protein (g)", targetProtein)}
@@ -111,7 +111,7 @@ function Analytics({
       </div>
       <HealthGraph />
       <BottomNavigation act="analytics" />
-    </>
+    </div>
   );
 }
 

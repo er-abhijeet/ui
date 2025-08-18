@@ -293,7 +293,7 @@ function App() {
   const [carb, setCarb] = useState(0);
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen">
+    <div className="p-4 bg-gray-100 min-h-screen max-w-md mx-auto">
 
       {/* Header */}
       <Header setInfoPreview={setInfoPreview}/>

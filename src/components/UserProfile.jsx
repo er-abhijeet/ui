@@ -66,7 +66,7 @@ function UserProfile() {
 
   return (
     <>
-    <div className="p-4 bg-white shadow rounded-lg max-w-md mx-auto">
+    <div className="p-4 bg-white shadow rounded-lg max-w-md mx-auto ">
       <h2 className="text-xl font-semibold mb-4">{`Hi, User ${user[1]}`}</h2>
       <div>
       {/* Other content like userData list */}
