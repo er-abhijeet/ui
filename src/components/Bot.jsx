@@ -18,7 +18,7 @@ function Bot() {
   const {fileip}=useContext(UserContext);
 
   async function callApi(file) {
-    const url = `http://${fileip}:5000/upload`; // Adjust if server is hosted elsewhere
+    const url = `${fileip}/upload`; // Adjust if server is hosted elsewhere
     const formData = new FormData();
     formData.append('file', file);
 
@@ -37,6 +37,9 @@ function Bot() {
             const data=result.data.extracted_tests;
             console.log('Medical Tests:', data);
             await axios.post(`${ip}/changeinfo/?userId=${userId}`,{data: data});
+          setFile(null);
+            alert("data uploaded, you can check on profile section.")
+
         } else {
             console.error('API Error:', result.error);
         }
