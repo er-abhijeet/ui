@@ -29,18 +29,22 @@ const FoodSelection = ({ foodItems, onSubmit }) => {
 
       {/* Radio Buttons for Food Items */}
       <div className="mb-3">
-        {foodItems.map((food, index) => (
-          <label key={index} className="flex items-center space-x-2">
-            <input
-              type="radio"
-              name="foodItem"
-              value={food}
-              checked={selectedFood === food}
-              onChange={() => setSelectedFood(food)}
-            />
-            <span>{food}</span>
-          </label>
-        ))}
+        {foodItems.filter(food => typeof food === 'object' && food.item).map((food, index) => {
+          const label = food.item;
+          const probability = food.probability !== undefined ? food.probability : null;
+          return (
+            <label key={index} className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name="foodItem"
+                value={label}
+                checked={selectedFood === label}
+                onChange={() => setSelectedFood(label)}
+              />
+              <span>{label}{probability ? ` (${probability}%)` : ''}</span>
+            </label>
+          );
+        })}
       </div>
 
       {/* Quantity Input */}
