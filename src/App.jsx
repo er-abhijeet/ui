@@ -189,9 +189,9 @@ function App() {
       const data = await response.json();
 
       if (response.ok) {
-        setCals((prev) => prev + parseInt(temp[1]));
-        setProtein((prev) => prev + parseInt(temp[2]));
-        setCarb((prev) => prev + parseInt(temp[3]));
+        setCals((prev) => parseInt(prev) + parseInt(temp[1]));
+        setProtein((prev) => parseInt(prev) + parseInt(temp[2]));
+        setCarb((prev) => parseInt(prev) + parseInt(temp[3]));
         fetch(`${ip}/all/?userId=${userId}`)
           .then((res) => res.json())
           .then((data) => {
