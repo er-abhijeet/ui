@@ -124,28 +124,14 @@ function Bot() {
       }
 
       console.log("total mess: ", mess);
-      const resp = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${import.meta.env.VITE_GEMINI_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  {
-                    text: mess,
-                  },
-                ],
-              },
-            ],
-          }),
-        }
-      );
-
-      // console.log(resp.json());
+      // Call Gemini chat via backend
+      const resp = await fetch(`${ip}/api/gemini/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: mess }),
+      });
       let res2 = await resp.json();
-      let res1=res2.candidates[0].content.parts[0].text
+      let res1 = res2.candidates?.[0]?.content?.parts?.[0]?.text || "No response from Gemini.";
 
       const botMessage = { sender: "bot", content: res1 };
       setMessages((prev) => [...prev, botMessage]);
@@ -155,7 +141,7 @@ function Bot() {
         message: res1,
         isBot: true,
       });
-      return; // Gemini API end
+      return;
 
       // Start streaming bot response
       // const res = await fetch(`${ip}/chat`, {

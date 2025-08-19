@@ -109,26 +109,13 @@ function App() {
         });
 
       const base64Image = await toBase64(preview);
-      const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${import.meta.env.VITE_GEMINI_KEY}`;
-
       const imagePrompt =
         "List the 5 most probable food items present in this image, in order from highest to lowest probability. Respond ONLY with a JSON array in this format: [{\"item\": <name>, \"probability\": <percent>}].";
 
-      const body = {
-        contents: [
-          {
-            parts: [
-              { text: imagePrompt },
-              { inline_data: { mime_type: "image/jpeg", data: base64Image } },
-            ],
-          },
-        ],
-      };
-
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${ip}/api/gemini/food-image`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ imageBase64: base64Image, imagePrompt }),
       });
       const result = await response.json();
 
@@ -226,17 +213,12 @@ function App() {
     setFoodList(null);
     let convertedStr = event.food.replace(/_/g, " ");
     const mess = `${event.quantity} ${event.unit} of ${convertedStr}`;
-
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${import.meta.env.VITE_GEMINI_KEY}`;
     const prompt = `Give the nutrition macros for ${mess} in this exact JSON format: {\n \"items\": [\n {\n \"name\": \"<food name>\",\n \"calories\": <calories>,\n \"serving_size_g\": <serving size>,\n \"fat_total_g\": <fat>,\n \"fat_saturated_g\": <saturated fat>,\n \"protein_g\": <protein>,\n \"sodium_mg\": <sodium>,\n \"potassium_mg\": <potassium>,\n \"cholesterol_mg\": <cholesterol>,\n \"carbohydrates_total_g\": <carbs>,\n \"fiber_g\": <fiber>,\n \"sugar_g\": <sugar>\n }\n ]\n}`;
-    
 
-    const body = { contents: [{ parts: [{ text: prompt }] }] };
-
-    fetch(API_URL, {
+    fetch(`${ip}/api/gemini/macros`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body: JSON.stringify({ prompt }),
     })
       .then((res) => res.json())
       .then((data) => {
