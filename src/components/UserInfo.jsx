@@ -66,7 +66,7 @@ export default function UserInfo({ userId, setTargetCals, targetCals, setInfoPre
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div className="fixed max-w-120 mx-auto inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="mt-4 p-4 bg-white shadow-md rounded-lg">
         <h2 className="text-lg font-semibold">Calorie Calculator</h2>
         {reset && (

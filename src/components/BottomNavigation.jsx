@@ -8,7 +8,7 @@ function BottomNavigation(props) {
   const navigate = useNavigate();
     return (
         <>
-        <div className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-2 flex justify-around">
+        <div className="fixed max-w-120 mx-auto bottom-0 left-0 right-0 bg-white shadow-md p-2 flex justify-around">
         <div onClick={()=>{navigate('/');}} className={`flex flex-col items-center ${props.act? "text-gray-400":"text-green-600"}`}>
           <Camera />
           <p className="text-xs">Dashboard</p>

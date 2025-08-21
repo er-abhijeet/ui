@@ -9,6 +9,8 @@ import Bot from './components/Bot'
 import UserProfile from './components/UserProfile'
 import UserContextProvider from './context/UserContextProvider'
 import Analytics from './components/Analytics'
+import { Toaster } from 'react-hot-toast'
+import ShowToastOnPC from './components/ShowToast'
 
 
 // createRoot(document.getElementById('root')).render(
@@ -54,8 +56,13 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <UserContextProvider>
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <React.StrictMode>
+      <ShowToastOnPC>
+        <div className='max-w-120 mx-auto'>
+          <Toaster position="top-center" reverseOrder={false} />
+          <RouterProvider router={router} />
+        </div>
+      </ShowToastOnPC>
+    </React.StrictMode>
   </UserContextProvider>
 )
